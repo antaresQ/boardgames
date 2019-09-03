@@ -16,6 +16,26 @@ const client = new MongoClient(URL, { useNewUrlParser: true, useUnifiedTopology:
 const app = express();
 
 
+//GET /game
+app.get('/game',
+    (req,resp) => {
+        client.db('boardgames')
+        .collection('gameslist')
+        .distinct('Name')
+        .then(result => {
+            resp.status(200)
+            resp.type('application/json')
+            resp.json(result)
+        })
+        .catch(error=> {
+            resp.status(400)
+            resp.end(error)
+        })
+    }
+
+)
+
+
 // connect to mongo/boardgames
 client.connect(
     (err, client) => {
