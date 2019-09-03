@@ -17,7 +17,7 @@ const app = express();
 
 
 //GET /game
-app.get('/game',
+app.get('/games',
     (req,resp) => {
         client.db('boardgames')
         .collection('gameslist')
