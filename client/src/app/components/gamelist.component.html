@@ -1,5 +1,5 @@
 <mat-action-list>
-    <button>
-        {{c}}
+    <button mat-list-item *ngFor="Let c of gameslist">
+        {{c.names}}
     </button>
 </mat-action-list>

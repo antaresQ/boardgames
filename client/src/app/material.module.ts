@@ -1,9 +1,11 @@
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgModule } from '@angular/core';
+import { MatListModule } from '@angular/material/list';
 
 
 const MODULES = [
-    MatToolbarModule
+    MatToolbarModule,
+    MatListModule
   ];
 
 
