@@ -16,8 +16,8 @@ const client = new MongoClient(URL, { useNewUrlParser: true, useUnifiedTopology:
 const app = express();
 
 
-//GET /game
-app.get('/games',
+//GET /games
+app.get('/api/games',
     (req,resp) => {
         client.db('boardgames')
         .collection('gameslist')

@@ -25,8 +25,7 @@ export class GamelistComponent implements OnInit {
       console.error('>> error:', error)
     })
 
-
-
+    
   }
 
 }
