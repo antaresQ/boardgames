@@ -36,6 +36,25 @@ app.get('/api/games',
 )
 
 
+//GET /game comments
+app.get('/api/comments/:boardgameId',
+    (req,resp) => {
+        client.db('boardgames')
+        .collection('review')
+        .find({ID:Number(req.params.boardgameId)})
+        .toArray()
+        .then(result => {
+            resp.status(200)
+            resp.type('application/json')
+            resp.json(result)
+        })
+        .catch(error=> {
+            resp.status(400)
+            resp.end(error)
+        })
+    }
+)
+
 // connect to mongo/boardgames
 client.connect(
     (err, client) => {
