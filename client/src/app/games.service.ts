@@ -9,13 +9,15 @@ export class GamesService {
 
     constructor(readonly http:HttpClient) {}
 
-    gameslist(): Promise<GamesList> {
+    gamesList(): Promise<GamesList> {
         return (
-            this.http.get<GamesName[]>('games')
+            this.http.get<GamesName[]>('/api/games')
             .toPromise()
             .then(result => {
+                
                 return (<GamesList>{
-                    games:result
+                    games:result,
+                    timestamp: (new Date()).toUTCString()
                 });
             })
         )

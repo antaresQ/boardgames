@@ -1,5 +1,13 @@
 <mat-action-list>
-    <button mat-list-item *ngFor = "let c of gameslist.games">
-        {{c.names}}
-    </button>
+    <p>Loading of html on angular succeeded</p>
+    <br/>
+    <div *ngIf = "gamesList">
+        <p>Successfully loaded data from node server to angular server</p>
+        <p>{{gamesList.timestamp}}</p>
+        <ul>
+            <li *ngFor="let g of gamesList.games">
+                <span>{{g}}</span>
+            </li>
+        </ul>
+    </div>
 </mat-action-list>

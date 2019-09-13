@@ -1,8 +1,9 @@
 module.exports = [
     {
         context: ['/api'],
-        target: 'http://localhost:3000',
+        target: 'http://localhost:3000/',
         secure: false,
-        loglevel: 'debug'
+        loglevel: 'debug',
+        changeOrigin: true
     }
 ]

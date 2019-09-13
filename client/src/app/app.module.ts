@@ -8,6 +8,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GamelistComponent } from './components/gamelist.component';
 import { ApprouteModule } from './approute.module';
 
+import { GamesService } from './games.service';
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,9 +19,10 @@ import { ApprouteModule } from './approute.module';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     MaterialModule, ApprouteModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [ GamesService ],
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }

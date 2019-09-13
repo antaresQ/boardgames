@@ -11,15 +11,16 @@ import { GamesList } from '../model';
 })
 export class GamelistComponent implements OnInit {
 
-  constructor(readonly gameSvc: GamesService, readonly router:Router, readonly activatedRoute:ActivatedRoute) { }
+  constructor(readonly gameSvc: GamesService, readonly router:Router,) { }
 
   gamesList: GamesList ={ games: [] , timestamp:'' }
 
   ngOnInit() {
 
-    this.gameSvc.gameslist()
+    this.gameSvc.gamesList()
     .then(result => {
       this.gamesList = result;
+      console.log(this.gamesList);
     })
     .catch(error =>{
       console.error('>> error:', error)
