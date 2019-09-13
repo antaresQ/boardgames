@@ -1,0 +1,11 @@
+<p>comments works!</p>
+
+
+<div *ngIf="commentsList">
+    <p>Successfully loaded data from node server to angular server</p>
+        <ul>
+            <li *ngFor="let c of commentsList.comments">
+                <span>{{c.comment}}</span>
+            </li>
+        </ul>
+</div>

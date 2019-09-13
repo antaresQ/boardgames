@@ -17,3 +17,7 @@ export interface GamesName {
     ID: number;
     name: string
   }
+
+  export interface CommentsList {
+    comments: Comment[];
+  }
