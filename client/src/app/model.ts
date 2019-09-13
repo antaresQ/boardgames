@@ -7,3 +7,13 @@ export interface GamesName {
     games: GamesName[];
     timestamp: string;
   }
+
+  export interface Comment {
+    _id: string;
+    unknown: number;
+    user: string;
+    rating: number;
+    comment: string;
+    ID: number;
+    name: string
+  }
