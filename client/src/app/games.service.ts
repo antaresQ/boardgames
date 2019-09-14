@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http';
 
-import { GamesList, GamesName, Comment, CommentsList } from './model';
+import { GamesList, GamesName, GamesDetails, Comment, CommentsList } from './model';
 
 @Injectable()
 export class GamesService {
@@ -11,7 +11,7 @@ export class GamesService {
 
     gamesList(): Promise<GamesList> {
         return (
-            this.http.get<GamesName[]>('/api/games')
+            this.http.get<GamesName[]>(`/api/games`)
             .toPromise()
             .then(result => {
                 
