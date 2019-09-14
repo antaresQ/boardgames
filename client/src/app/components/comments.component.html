@@ -1,11 +1,14 @@
 <p>comments works!</p>
-
+<br />
 
 <div *ngIf="commentsList">
-    <p>Successfully loaded data from node server to angular server</p>
-        <ul>
-            <li *ngFor="let c of commentsList.comments">
-                <span>{{c.comment}}</span>
-            </li>
-        </ul>
+    <h4>Comments for: {{commentsList.comments[0].name}}</h4>
+    <table>
+        <tr *ngFor="let c of commentsList.comments">
+            <td>
+                <p>{{c.user}}</p>
+                <p>{{c.comment}}</p>
+            </td>
+        </tr>
+    </table>
 </div>
