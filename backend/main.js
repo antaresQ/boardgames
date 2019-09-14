@@ -1,6 +1,7 @@
 // Load libraries
 const express = require('express');
 const MongoClient = require('mongodb').MongoClient;
+const bodyParser = require('body-parser');
 
 // Configure PORT
 const PORT = parseInt(process.argv[2]) || parseInt(process.env.APP_PORT) || 3000;
@@ -14,6 +15,8 @@ const client = new MongoClient(URL, { useNewUrlParser: true, useUnifiedTopology:
 
 // Create an instance of the application
 const app = express();
+
+app.use(bodyParser.json());
 
 
 //GET /api/games
@@ -145,6 +148,19 @@ app.get('/api/comments/:gameId',
         .catch(error=> {
             resp.status(400)
             resp.end(error)
+        })
+    }
+)
+
+app.post('/api/addcomment',
+    (req,resp) => {
+        client.db('boardgames')
+        .collection('review')
+        .insert(req.body, function (error, result) {
+            if (error)
+                resp.send(error);
+            else
+                resp.send('Success')
         })
     }
 )
