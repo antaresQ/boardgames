@@ -11,12 +11,14 @@ import { ApprouteModule } from './approute.module';
 import { GamesService } from './games.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CommentsComponent } from './comments/comments.component';
+import { GamesdetailsComponent } from './gamesdetails/gamesdetails.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GamelistComponent,
-    CommentsComponent
+    CommentsComponent,
+    GamesdetailsComponent
   ],
   imports: [
     BrowserModule,

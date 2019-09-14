@@ -1,4 +1,4 @@
-<mat-action-list>
+<!--<mat-action-list>
     <p>Loading of html on angular succeeded</p>
     <br/>
     <div *ngIf = "gamesList">
@@ -10,4 +10,10 @@
             </li>
         </ul>
     </div>
+</mat-action-list>-->
+
+<mat-action-list>
+    <button mat-list-item *ngFor="let g of gamesList.games">
+        {{g}}
+    </button>
 </mat-action-list>
