@@ -5,12 +5,12 @@ import { NgModule } from '@angular/core';
 import { MaterialModule } from './material.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { GamelistComponent } from './components/gamelist.component';
+import { GamelistComponent } from './gameslist/gamelist.component';
 import { ApprouteModule } from './approute.module';
 
 import { GamesService } from './games.service';
 import { HttpClientModule } from '@angular/common/http';
-import { CommentsComponent } from './components/comments.component';
+import { CommentsComponent } from './comments/comments.component';
 
 @NgModule({
   declarations: [
