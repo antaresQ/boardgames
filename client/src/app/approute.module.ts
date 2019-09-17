@@ -9,7 +9,7 @@ const ROUTES: Routes = [
     { path: '', component: GamelistComponent},
     { path: 'games', component: GamelistComponent },
     { path: 'game/:gameId', component:GamesdetailsComponent },
-    { path: 'comment', component: CommentFormComponent},
+    { path: 'comment/:gameId', component: CommentFormComponent},
     { path: 'comments/:gameId', component: CommentsComponent}
 ];
 

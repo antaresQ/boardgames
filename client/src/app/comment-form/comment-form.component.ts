@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GamesService } from '../games.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Comment } from '../model';
+import { Comment, GameBrief } from '../model';
 
 @Component({
   selector: 'app-comment-form',
@@ -10,21 +10,56 @@ import { Comment } from '../model';
 })
 export class CommentFormComponent implements OnInit {
 
-  ratings: number[] = Array(10).fill(0).map((x,i)=>i+1);
+  game: GameBrief = {
+    ID: null ,
+    name: '',
+    year: null,
+    rank: null,
+    average: null,
+    bayesAverage: null,
+    usersRated: null,
+    url: null,
+    thumbnail: null
+  };
+
+  ratings: number[]; 
   
   message: string;
 
   model: Comment = {
-    user:"Someguy",
-    rating:null,
-    comment:'test',
-    ID: null,
-    name:''
-  }
+    _id: '',
+    unknown: null,
+    user: 'Apple',
+    rating: null,
+    comment: '',
+    ID: null ,
+    name: ''
+  };
 
   submitted = false;
 
   constructor(readonly gameSvc: GamesService, readonly router: Router, readonly activatedRoute: ActivatedRoute) { }
+
+  ngOnInit() {
+    this.ratings = Array(10).fill(0).map((x,i)=>i+1);
+    
+    const gameId = this.activatedRoute.snapshot.params.gameId;
+    this.gameSvc.gameBrief(gameId)
+    .then(result => {
+      this.model = {
+        user: 'Apple',
+        rating: null,
+        comment: '',
+        ID: result[0].ID ,
+        name: result[0].Name
+      }
+    })
+    .catch( error => {
+      console.error('>> error', error)
+    })
+
+    console.info(this.ratings)
+  }
 
   onSubmit() { this.submitted = true; 
     const comment = this.model;
@@ -38,9 +73,6 @@ export class CommentFormComponent implements OnInit {
     })
   }
   
-
-
-  ngOnInit() {}
 
   // comment: Comment;
   // message: string;

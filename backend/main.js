@@ -100,7 +100,29 @@ app.get('/api/gamesbycategory/:category',
     }
 )
 
-//GET full game details by Id
+
+//GET brief info of specific game info shown in gameslist by Id
+app.get('/api/gamebrief/:gameId',
+    (req,resp) => {
+        client.db('boardgames')
+        .collection('gameslist')
+        .find({
+            ID: Number(req.params.gameId)
+        })
+        .toArray()
+        .then(result => {
+            resp.status(200)
+            resp.type('application/json')
+            resp.json(result)
+        })
+        .catch(error=> {
+            resp.status(400)
+            resp.end(error)
+        })
+    }
+)
+
+//GET  FULL game details by Id
 app.get('/api/game/:gameId',
     (req,resp) => {
         client.db('boardgames')
@@ -132,7 +154,6 @@ app.get('/api/game/:gameId',
     }
 )
 
-
 //GET /game comments
 app.get('/api/comments/:gameId',
     (req,resp) => {
@@ -156,7 +177,7 @@ app.post('/api/addcomment',
     (req,resp) => {
         client.db('boardgames')
         .collection('review')
-        .insert(req.body
+        .insertOne(req.body
             // {
             //     user: req.body.user,
             //     rating: req.body.rating,

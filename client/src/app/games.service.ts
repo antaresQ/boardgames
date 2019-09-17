@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { catchError } from 'rxjs/operators'
 
-import { GamesList, GamesName, GamesDetails, Comment, CommentsList } from './model';
+import { GamesList, GamesName, GameBrief, Comment, CommentsList } from './model';
 import { reject } from 'q';
 
 @Injectable()
@@ -27,6 +27,16 @@ export class GamesService {
                     games:result,
                     timestamp: (new Date()).toUTCString()
                 });
+            })
+        )
+    }
+
+    gameBrief(gameId: string): Promise<GameBrief> {
+        return (
+            this.http.get<GameBrief>(`/api/gameBrief/${gameId}`)
+            .toPromise()
+            .then(result => {
+                return (result);
             })
         )
     }

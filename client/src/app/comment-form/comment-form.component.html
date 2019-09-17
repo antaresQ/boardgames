@@ -29,8 +29,8 @@
           required
           [(ngModel)]="model.rating" name="rating"
           #rating="ngModel">
-        <!-- <option *ngFor="let r of ratings; let i = index" [value]="r">apples + {{r}}</option> -->
         <option></option>
+        <!-- <option *ngFor="let r of ratings; let i = index" [value]="r">apples + {{r}}</option> -->
         <option [value]="ratings[0]">{{ratings[0]}}</option>
         <option [value]="ratings[1]">{{ratings[1]}}</option>
         <option [value]="ratings[2]">{{ratings[2]}}</option>
@@ -45,7 +45,7 @@
       </div>
       input: {{model.rating}}
       <br>
-
+      <p>{{ratings[0]}}</p>
       <br />
       <div class="form-group">
         <label for="comment">Comment</label>

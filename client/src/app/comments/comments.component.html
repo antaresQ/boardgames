@@ -1,16 +1,20 @@
-<p>comments works!</p>
-<br />
 
-<!-- <app-comment-form></app-comment> -->
+<div class="container">
+    <p>comments works!</p>
+    <br />
 
-<div *ngIf="commentsList">
-    <h4>Comments for: {{commentsList.comments[0].name}}</h4>
-    <table>
-        <tr *ngFor="let c of commentsList.comments">
-            <td>
-                <p>{{c.user}}</p>
-                <p>{{c.comment}}</p>
-            </td>
-        </tr>
-    </table>
+    <!-- <app-comment-form></app-comment> -->
+
+    <div *ngIf="commentsList">
+        <h4>Comments for: {{commentsList.comments[0].name}}</h4>
+        <table>
+            <tr *ngFor="let c of commentsList.comments">
+                <td>
+                    <p>{{c.user}}</p>
+                    <p>{{c.comment}}</p>
+                </td>
+            </tr>
+        </table>
+    </div>
+
 </div>
