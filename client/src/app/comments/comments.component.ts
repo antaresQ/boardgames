@@ -19,6 +19,7 @@ export class CommentsComponent implements OnInit {
     this.gamesSvc.commentsList(gameId)
     .then(result => {
       this.commentsList = result;
+      console.info(result);
     })
     .catch(error =>{
       console.error('>> error:', error)

@@ -3,18 +3,22 @@
     <p>comments works!</p>
     <br />
 
-    <app-comment-form></app-comment-form>
+    <!-- <app-comment-form></app-comment-form> -->
 
     <div *ngIf="commentsList">
         <h4>Comments for: {{commentsList.comments[0].name}}</h4>
-        <table>
-            <tr *ngFor="let c of commentsList.comments">
+        <table *ngFor="let c of commentsList.comments.slice().reverse()">
+            <tr>
                 <td>
-                    <p>{{c.user}} - {{c.rating}}/10</p>
-                    <p>{{c.comment}}</p>
-                    <br>
+                    {{c.user}} - {{c.rating}}/10
                 </td>
             </tr>
+            <tr>
+                <td>
+                    {{c.comment}}
+                </td>
+            </tr>
+            <br>
         </table>
     </div>
 
