@@ -47,7 +47,7 @@ export class CommentFormComponent implements OnInit {
     this.gameSvc.gameBrief(gameId)
     .then(result => {
       this.model = {
-        user: 'Apple',
+        user: '',
         rating: null,
         comment: '',
         ID: result[0].ID ,
