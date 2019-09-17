@@ -1,0 +1,64 @@
+
+
+<div class="container">
+    <p>comment form works!</p>
+
+  <form (ngSubmit)="onSubmit()" #commentForm="ngForm">
+
+      <div class="form-group">
+        <label for="user">User</label>
+        <input type="text" class="form-control" id="user"
+              required
+              [(ngModel)]="model.user" name="user">
+              input: {{model.user}}
+        <!-- <div [hidden]="name.valid || name.pristine"
+          class="alert alert-danger">
+          Name is required
+        </div> -->
+        <!-- <div [hidden]="user.valid || name.pristine"
+            class="alert alert-danger">
+          User is required
+        </div> -->
+      </div>
+  
+      <br/>
+
+      <div class="form-group">
+        <label for="rating"> Game Rating</label>
+        <select class="form-control" id="rating"
+          required
+          [(ngModel)]="model.rating" name="rating"
+          #rating="ngModel">
+        <option *ngFor="let r of ratings; let i = index" [value]="r">apples + {{r}}</option>
+        <option>{{ratings[2]}}</option>
+        </select>
+      </div>
+      input: {{model.rating}}
+      <br>
+      {{ratings[2]}}
+
+      <br />
+      <div class="form-group">
+        <label for="comment">Comment</label>
+        <input type="text" class="form-control" id="comment"
+              required
+              [(ngModel)]="model.comment" name="comment">
+              input: {{model.comment}}
+        <!-- <div [hidden]="name.valid || name.pristine"
+          class="alert alert-danger">
+          Comment is required
+        </div>
+        <br> -->
+        <!-- <div [hidden]="user.valid || name.pristine"
+            class="alert alert-danger">
+          User is required
+        </div> -->
+      </div>
+
+      <br>
+      <button type="submit" class="btn btn-success" [disabled]="!heroForm.form.valid">Submit</button>
+
+  </form>
+
+</div>
+<br>

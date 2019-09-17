@@ -1,11 +1,19 @@
 import { Injectable } from '@angular/core'
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
+import { catchError } from 'rxjs/operators'
 
 import { GamesList, GamesName, GamesDetails, Comment, CommentsList } from './model';
+import { reject } from 'q';
 
 @Injectable()
 export class GamesService {
 
+    headers: Headers;
+    options: HttpHeaders;
+
+    httpOptions ={
+        headers: new HttpHeaders({'Content-Type': 'application/json'})
+    };
 
     constructor(readonly http:HttpClient) {}
 
@@ -34,6 +42,27 @@ export class GamesService {
                 });
             })
         )
+    }
+
+    comment(comment: any): Promise<any> {
+        //let body = JSON.stringify(comment);
+        return(
+            this.http.post<any>('/api/addcomment', comment)
+            .pipe(
+                catchError(this.handleError)
+            )
+            .toPromise()
+        )
+    }
+
+    private extractData(res: Response) {
+        let body = res.json();
+        return body || {};
+    }
+
+    private handleError(error: any): Promise<any> {
+        console.error('An error occurred', error);
+        return Promise.reject(error.message || error);
     }
 
 }

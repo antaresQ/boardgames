@@ -19,8 +19,8 @@ export interface GamesName {
 
 
   export interface Comment {
-    _id: string;
-    unknown: number;
+    _id?: string;
+    unknown?: number;
     user: string;
     rating: number;
     comment: string;

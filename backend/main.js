@@ -156,7 +156,15 @@ app.post('/api/addcomment',
     (req,resp) => {
         client.db('boardgames')
         .collection('review')
-        .insert(req.body, function (error, result) {
+        .insert(req.body
+            // {
+            //     user: req.body.user,
+            //     rating: req.body.rating,
+            //     comment: req.body.comment,
+            //     ID: req.body.ID,
+            //     name: req.body.name 
+            // }
+            , function (error, result) {
             if (error)
                 resp.send(error);
             else
@@ -169,10 +177,10 @@ app.post('/api/addcomment',
 client.connect(
     (err, client) => {
         if (err) {
-            console.error('fail to restaurant:', err)
+            console.error('fail to boardgames DB:', err)
             return;
         }
-        console.info('connected to restaurant')
+        console.info('connected to boardgames DB')
         // Start the server
         app.listen(PORT, () => {
             console.info(`Application started on port ${PORT} at ${new Date()}`);

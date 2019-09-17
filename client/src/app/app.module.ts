@@ -12,11 +12,14 @@ import { GamesService } from './games.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CommentsComponent } from './comments/comments.component';
 import { GamesdetailsComponent } from './gamesdetails/gamesdetails.component';
+import { CommentFormComponent } from './comment-form/comment-form.component'
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     GamelistComponent,
+    CommentFormComponent,
     CommentsComponent,
     GamesdetailsComponent
   ],
@@ -24,7 +27,8 @@ import { GamesdetailsComponent } from './gamesdetails/gamesdetails.component';
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    MaterialModule, ApprouteModule
+    MaterialModule, ApprouteModule,
+    FormsModule
   ],
   providers: [ GamesService ],
   bootstrap: [ AppComponent ]
