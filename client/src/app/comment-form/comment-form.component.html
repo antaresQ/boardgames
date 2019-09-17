@@ -29,13 +29,22 @@
           required
           [(ngModel)]="model.rating" name="rating"
           #rating="ngModel">
-        <option *ngFor="let r of ratings; let i = index" [value]="r">apples + {{r}}</option>
-        <option>{{ratings[2]}}</option>
+        <!-- <option *ngFor="let r of ratings; let i = index" [value]="r">apples + {{r}}</option> -->
+        <option></option>
+        <option [value]="ratings[0]">{{ratings[0]}}</option>
+        <option [value]="ratings[1]">{{ratings[1]}}</option>
+        <option [value]="ratings[2]">{{ratings[2]}}</option>
+        <option [value]="ratings[3]">{{ratings[3]}}</option>
+        <option [value]="ratings[4]">{{ratings[4]}}</option>
+        <option [value]="ratings[5]">{{ratings[5]}}</option>
+        <option [value]="ratings[6]">{{ratings[6]}}</option>
+        <option [value]="ratings[7]">{{ratings[7]}}</option>
+        <option [value]="ratings[8]">{{ratings[8]}}</option>
+        <option [value]="ratings[9]">{{ratings[9]}}</option>
         </select>
       </div>
       input: {{model.rating}}
       <br>
-      {{ratings[2]}}
 
       <br />
       <div class="form-group">

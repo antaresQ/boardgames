@@ -10,11 +10,13 @@ import { Comment } from '../model';
 })
 export class CommentFormComponent implements OnInit {
 
-  ratings: number[] = Array(10).fill(0).map((x,i)=>i);
+  ratings: number[] = Array(10).fill(0).map((x,i)=>i+1);
+  
+  message: string;
 
   model: Comment = {
     user:"Someguy",
-    rating:this.ratings[0],
+    rating:null,
     comment:'test',
     ID: null,
     name:''
@@ -22,7 +24,20 @@ export class CommentFormComponent implements OnInit {
 
   submitted = false;
 
-  onSubmit() { this.submitted = true; }
+  constructor(readonly gameSvc: GamesService, readonly router: Router, readonly activatedRoute: ActivatedRoute) { }
+
+  onSubmit() { this.submitted = true; 
+    const comment = this.model;
+    this.gameSvc.comment(comment)
+    .then(result => {
+      this.message = result
+      console.log(result);
+    })
+    .catch( error => {
+      console.error('>> error:', error)
+    })
+  }
+  
 
 
   ngOnInit() {}
