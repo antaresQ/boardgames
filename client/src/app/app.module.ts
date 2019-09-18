@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 
 
 import { MaterialModule } from './material.module';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GamelistComponent } from './gameslist/gamelist.component';
@@ -26,9 +28,10 @@ import { FormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    HttpClientModule,
-    MaterialModule, ApprouteModule,
-    FormsModule
+    HttpClientModule, ApprouteModule,
+    FormsModule, 
+    BrowserAnimationsModule, 
+    MaterialModule, MatButtonModule, MatCheckboxModule
   ],
   providers: [ GamesService ],
   bootstrap: [ AppComponent ]
