@@ -11,10 +11,19 @@
     <form mat-form (ngSubmit)="onSubmit()" #commentForm="ngForm">
 
         <div class="form-container">
+          <span class="span-container">
+            <mat-form-field>
+                <input matInput placeholder="Username" id="user" name="user" [(ngModel)]="model.user">
+            </mat-form-field>
+            <p style="text-align: center"> - </p>
+            <mat-form-field>
+                <mat-select placeholder="Select rating" id="rating" name="rating" [(ngModel)]="model.rating">
+                  <mat-option *ngFor="let r of ratings" [value]="r">{{r}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+          </span>
 
-          <mat-form-field>
-              <input matInput placeholder="Username" id="user" name="user" [(ngModel)]="model.user">
-          </mat-form-field>
+
           <!-- input: {{model.user}}  -->
           
           <!-- <label for="user">User</label>
@@ -32,36 +41,6 @@
           </div> -->
         </div>
     
-        <br/>
-
-        <div class="form-container">
-
-          <mat-form-field>
-              <mat-select placeholder="Select rating" id="rating" name="rating" [(ngModel)]="model.rating">
-                <mat-option *ngFor="let r of ratings" [value]="r">{{r}}</mat-option>
-              </mat-select>
-          </mat-form-field>
-
-
-          <!-- <label for="rating"> Game Rating</label>
-          <select class="form-control" id="rating"
-            required
-            [(ngModel)]="model.rating" name="rating"
-            #rating="ngModel">
-          <option></option> -->
-          <!-- <option *ngFor="let r of ratings; let i = index" [value]="r">apples + {{r}}</option> -->
-          <!-- <option [value]="ratings[0]">{{ratings[0]}}</option>
-          <option [value]="ratings[1]">{{ratings[1]}}</option>
-          <option [value]="ratings[2]">{{ratings[2]}}</option>
-          <option [value]="ratings[3]">{{ratings[3]}}</option>
-          <option [value]="ratings[4]">{{ratings[4]}}</option>
-          <option [value]="ratings[5]">{{ratings[5]}}</option>
-          <option [value]="ratings[6]">{{ratings[6]}}</option>
-          <option [value]="ratings[7]">{{ratings[7]}}</option>
-          <option [value]="ratings[8]">{{ratings[8]}}</option>
-          <option [value]="ratings[9]">{{ratings[9]}}</option> -->
-          <!-- </select> -->
-        </div>
         <!-- input: {{model.rating}} -->
         <br />
         <div class="form-container">
@@ -95,7 +74,6 @@
         <br><br>
 
     </form>
-
     </div>
   </div>
 </div>

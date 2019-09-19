@@ -19,3 +19,13 @@
     width: 25%;
     align-self: left;
   }
+
+
+  .span-container {
+    display: inline-flex;
+  }
+  
+  .span-container > * {
+    width: 50%;
+    align-self: center;
+  }
