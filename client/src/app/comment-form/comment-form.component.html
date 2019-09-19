@@ -1,17 +1,27 @@
 <div class="container">
   <div class="mat-app-background basic-container">
     <div class="mat-elevation-z8">
+      <br><br>
+      <div class="form-container">
+          <h4>Add Comment</h4>
+      </div>
+      <br>
       
-      <p>comment form works!</p>
 
     <form mat-form (ngSubmit)="onSubmit()" #commentForm="ngForm">
 
-        <div class="form-group">
-          <label for="user">User</label>
+        <div class="form-container">
+
+          <mat-form-field>
+              <input matInput placeholder="Username" id="user" name="user" [(ngModel)]="model.user">
+          </mat-form-field>
+          <!-- input: {{model.user}}  -->
+          
+          <!-- <label for="user">User</label>
           <input type="text" class="form-control" id="user"
                 required
                 [(ngModel)]="model.user" name="user">
-                input: {{model.user}}
+                input: {{model.user}} -->
           <!-- <div [hidden]="name.valid || name.pristine"
             class="alert alert-danger">
             Name is required
@@ -24,15 +34,23 @@
     
         <br/>
 
-        <div class="form-group">
-          <label for="rating"> Game Rating</label>
+        <div class="form-container">
+
+          <mat-form-field>
+              <mat-select placeholder="Select rating" id="rating" name="rating" [(ngModel)]="model.rating">
+                <mat-option *ngFor="let r of ratings" [value]="r">{{r}}</mat-option>
+              </mat-select>
+          </mat-form-field>
+
+
+          <!-- <label for="rating"> Game Rating</label>
           <select class="form-control" id="rating"
             required
             [(ngModel)]="model.rating" name="rating"
             #rating="ngModel">
-          <option></option>
+          <option></option> -->
           <!-- <option *ngFor="let r of ratings; let i = index" [value]="r">apples + {{r}}</option> -->
-          <option [value]="ratings[0]">{{ratings[0]}}</option>
+          <!-- <option [value]="ratings[0]">{{ratings[0]}}</option>
           <option [value]="ratings[1]">{{ratings[1]}}</option>
           <option [value]="ratings[2]">{{ratings[2]}}</option>
           <option [value]="ratings[3]">{{ratings[3]}}</option>
@@ -41,19 +59,21 @@
           <option [value]="ratings[6]">{{ratings[6]}}</option>
           <option [value]="ratings[7]">{{ratings[7]}}</option>
           <option [value]="ratings[8]">{{ratings[8]}}</option>
-          <option [value]="ratings[9]">{{ratings[9]}}</option>
-          </select>
+          <option [value]="ratings[9]">{{ratings[9]}}</option> -->
+          <!-- </select> -->
         </div>
-        input: {{model.rating}}
-        <br>
-        
+        <!-- input: {{model.rating}} -->
         <br />
-        <div class="form-group">
-          <label for="comment">Comment</label>
+        <div class="form-container">
+
+          <mat-form-field>
+            <textarea matInput placeholder="Comment" name="comment" [(ngModel)]="model.comment"></textarea>
+          </mat-form-field>
+
+          <!-- <label for="comment">Comment</label>
           <input type="text" class="form-control" id="comment"
                 required
-                [(ngModel)]="model.comment" name="comment">
-                input: {{model.comment}}
+                [(ngModel)]="model.comment" name="comment"> -->
           <!-- <div [hidden]="name.valid || name.pristine"
             class="alert alert-danger">
             Comment is required
@@ -63,10 +83,16 @@
               class="alert alert-danger">
             User is required
           </div> -->
+          
         </div>
-
+        <!-- input: {{model.comment}} -->
         <br>
-        <button type="submit" class="btn btn-success" [disabled]="!commentForm.form.valid">Submit</button>
+        <br>
+        <!-- <button type="submit" class="btn btn-success" [disabled]="!commentForm.form.valid">Submit</button> -->
+        <div class="form-container">
+          <button mat-button type="submit" class="btn btn-success" >Submit</button>
+        </div>
+        <br><br>
 
     </form>
 
