@@ -8,7 +8,7 @@ const PORT = parseInt(process.argv[2]) || parseInt(process.env.APP_PORT) || 3000
 
 // Load DB configuration 
 const config = require('./config.json');
-const URL = config.mongo || 'mongodb://localhost:27017'
+const URL = config.mongolocal || 'mongodb://localhost:27017'
 
 // Create an instance of MongoClient
 const client = new MongoClient(URL, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -132,7 +132,8 @@ app.get('/api/game/:gameId',
                 {
                     $match: {ID: Number(req.params.gameId, 10)}
                 },
-                {  $lookup: {
+                {  
+                    $lookup: {
                     from: "gamesdetail",
                     localField: "ID",
                     foreignField: "id",
@@ -175,21 +176,56 @@ app.get('/api/comments/:gameId',
 
 app.post('/api/addcomment',
     (req,resp) => {
+
         client.db('boardgames')
         .collection('review')
-        .insertOne(req.body
-            // {
-            //     user: req.body.user,
-            //     rating: req.body.rating,
-            //     comment: req.body.comment,
-            //     ID: req.body.ID,
-            //     name: req.body.name 
-            // }
-            , function (error, result) {
-            if (error)
-                resp.send(error);
-            else
-                resp.send('Success')
+        .find().limit(1).sort({$natural:-1})
+        .toArray()
+        .then(result => {
+
+            req.body.index = result[0].index + 1;
+
+            client.db('boardgames')
+            .collection('review')
+            .insertOne(req.body
+                // {
+                //     user: req.body.user,
+                //     rating: req.body.rating,
+                //     comment: req.body.comment,
+                //     ID: req.body.ID,
+                //     name: req.body.name 
+                // }
+                , function (error, result) {
+                if (error) {
+                    resp.send('API Error:' + error)
+                }
+                else
+                    resp.send({data:"API Success: "});
+            })
+
+        })
+        .catch(error=> {
+            resp.status(400)
+            resp.end(error)
+        })
+        
+    }
+)
+
+
+app.get('/api/getLatestReview',
+    (req,resp) => {
+        client.db('boardgames')
+        .collection('review')
+        .find().limit(1).sort({$natural:-1})
+        .toArray()
+        .then(result => {
+            resp.json(result);
+            console.info(result[0].index);
+        })
+        .catch(error=> {
+            // resp.status(400)
+            // resp.end(error)
         })
     }
 )
