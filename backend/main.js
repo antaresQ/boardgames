@@ -197,10 +197,10 @@ app.post('/api/addcomment',
                 // }
                 , function (error, result) {
                 if (error) {
-                    resp.send('API Error:' + error)
+                    resp.send('>> API Error:' + error)
                 }
                 else
-                    resp.send({data:"API Success: "});
+                    resp.send({data:">> API Success: "});
             })
 
         })

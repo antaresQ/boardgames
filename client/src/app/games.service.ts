@@ -62,6 +62,14 @@ export class GamesService {
                 catchError(this.handleError)
             )
             .toPromise()
+            .then(result => {
+                console.info('>> service Success:' + result.data);
+                return '>> service Success:' + result.data;
+            })
+            .catch(error => {
+                console.info('service error' + error);
+                return error;
+            })
         )
     }
 

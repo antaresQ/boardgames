@@ -69,12 +69,18 @@
         <br>
         <!-- <button type="submit" class="btn btn-success" [disabled]="!commentForm.form.valid">Submit</button> -->
         <div class="form-container">
-          <button mat-button type="submit" class="btn btn-success" >Submit</button>
+          <span>
+              <button mat-button type="submit" class="btn btn-success" >Submit</button>
+              <button mat-button type="reset" class="btn btn-default" (click)="commentForm.reset()">Reset</button>
+          </span>
         </div>
         <br><br>
 
     </form>
     </div>
+  </div>
+  <div *ngIf="message">
+    {{message}}
   </div>
 </div>
 

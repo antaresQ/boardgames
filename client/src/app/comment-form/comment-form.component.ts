@@ -65,13 +65,14 @@ export class CommentFormComponent implements OnInit {
     const comment = this.model;
     this.gameSvc.comment(comment)
     .then(result => {
-      this.message = result
-      console.log(result);
+      this.message = result;
+      console.info('>> component success:' + result);
     })
     .catch( error => {
-      console.error('>> error:', error)
+      console.error('>> component error:' + error)
     })
   }
+  
 
   
   
