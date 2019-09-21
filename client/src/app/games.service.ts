@@ -54,8 +54,16 @@ export class GamesService {
         )
     }
 
-    comment(comment: any): Promise<any> {
+    comment(commentFromForm: any): Promise<any> {
         //let body = JSON.stringify(comment);
+        const comment = {
+            index: null,
+            user: commentFromForm.user,
+            rating: commentFromForm.rating,
+            comment: commentFromForm.comment,
+            ID: commentFromForm.ID,
+            name: commentFromForm.name
+        }
         return(
             this.http.post<any>('/api/addcomment', comment)
             .pipe(
