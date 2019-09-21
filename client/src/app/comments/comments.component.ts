@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnChanges, Input, SimpleChanges } from '@angular/core';
 import { GamesService } from '../games.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommentsList } from '../model';
@@ -11,7 +11,7 @@ import {MatTableDataSource} from '@angular/material/table';
   templateUrl: './comments.component.html',
   styleUrls: ['./comments.component.css']
 })
-export class CommentsComponent implements OnInit {
+export class CommentsComponent implements OnInit, OnChanges {
   displayedColumns: string[] = ['user', 'rating', 'comment'];
 
   dataSource: MatTableDataSource<any>;
@@ -19,6 +19,7 @@ export class CommentsComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   commentsList: CommentsList;
+  @Input() data: any;
 
   constructor(readonly gamesSvc: GamesService, readonly router: Router, readonly activatedRoute: ActivatedRoute) { }
 
@@ -35,9 +36,24 @@ export class CommentsComponent implements OnInit {
     .catch(error =>{
       console.error('>> error:', error)
     })
-    
-    
   }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('value changed >>', this.data);
+    const gameId = this.activatedRoute.snapshot.params.gameId;
+    this.gamesSvc.commentsList(gameId)
+    .then(result => {
+      this.dataSource = new MatTableDataSource(result.comments.reverse());
+      this.dataSource.paginator = this.paginator;
+      // console.info('result >>', result);
+      // console.info('commentsList >>', this.commentsList);
+      // console.info('commentsList >>', this.dataSource);
+    })
+    .catch(error =>{
+      console.error('>> error:', error)
+    })
+  }
+  
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();

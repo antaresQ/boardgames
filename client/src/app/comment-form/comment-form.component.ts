@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GamesService } from '../games.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Comment, GameBrief } from '../model';
+import { CommentsComponent } from '../comments/comments.component';
 
 @Component({
   selector: 'app-comment-form',
@@ -9,6 +10,8 @@ import { Comment, GameBrief } from '../model';
   styleUrls: ['./comment-form.component.css']
 })
 export class CommentFormComponent implements OnInit {
+
+  refreshCounter : number = 0;
 
   game: GameBrief = {
     ID: null ,
@@ -58,7 +61,6 @@ export class CommentFormComponent implements OnInit {
       console.error('>> error', error)
     })
 
-    console.info(this.ratings)
   }
 
   onSubmit() { this.submitted = true; 
@@ -67,11 +69,19 @@ export class CommentFormComponent implements OnInit {
     .then(result => {
       this.message = result;
       console.info('>> component success:' + result);
+      this.refreshCount();
       this.ngOnInit();
     })
     .catch( error => {
       console.error('>> component error:' + error)
     })
+
+  }
+
+
+  refreshCount() {
+    this.refreshCounter++;
+    // console.log('COUNTER: ', this.refreshCounter);
   }
   
 
