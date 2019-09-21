@@ -67,6 +67,7 @@ export class CommentFormComponent implements OnInit {
     .then(result => {
       this.message = result;
       console.info('>> component success:' + result);
+      this.ngOnInit();
     })
     .catch( error => {
       console.error('>> component error:' + error)
