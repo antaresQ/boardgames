@@ -2,7 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { GamesService } from '../games.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Comment, GameBrief } from '../model';
-import { CommentsComponent } from '../comments/comments.component';
+
+import { ErrorStateMatcher } from '@angular/material/core'
+import { FormControl, FormGroupDirective, NgForm, Validators, FormGroup, FormBuilder } from '@angular/forms';
+
+export class CommentFormErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 @Component({
   selector: 'app-comment-form',
@@ -39,9 +48,23 @@ export class CommentFormComponent implements OnInit {
     name: ''
   };
 
+  userFormControl = new FormControl('', [
+    Validators.required
+  ]);
+  ratingFormControl = new FormControl('', [
+    Validators.required
+  ]);
+  commentFormControl = new FormControl('', [
+    Validators.required
+  ]);
+
+  userMatcher = new CommentFormErrorStateMatcher();
+  ratingMatcher = new CommentFormErrorStateMatcher();
+  commentMatcher = new CommentFormErrorStateMatcher();
+
   submitted = false;
 
-  constructor(readonly gameSvc: GamesService, readonly router: Router, readonly activatedRoute: ActivatedRoute) { }
+  constructor(readonly gameSvc: GamesService, readonly router: Router, readonly activatedRoute: ActivatedRoute, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.ratings = Array(10).fill(0).map((x,i)=>i+1);

@@ -13,32 +13,23 @@
         <div class="form-container">
           <span class="span-container">
             <mat-form-field>
-                <input matInput placeholder="Username" id="user" name="user" [(ngModel)]="model.user">
+                <input matInput placeholder="Username" id="user" name="user" [(ngModel)]="model.user" 
+                  [formControl]="userFormControl" [errorStateMatcher]="userMatcher">
+                <mat-error *ngIf="userFormControl.hasError('required')">
+                  Username is <strong>required</strong>
+                </mat-error>
             </mat-form-field>
             <p style="text-align: center"> - </p>
             <mat-form-field>
-                <mat-select placeholder="Select rating" id="rating" name="rating" [(ngModel)]="model.rating">
+                <mat-select placeholder="Select rating" id="rating" name="rating" [(ngModel)]="model.rating"
+                [formControl]="ratingFormControl" [errorStateMatcher]="ratingMatcher">
                   <mat-option *ngFor="let r of ratings" [value]="r">{{r}}</mat-option>
                 </mat-select>
+                <mat-error *ngIf="ratingFormControl.hasError('required')">
+                  Rating is <strong>required</strong>
+                </mat-error>
             </mat-form-field>
           </span>
-
-
-          <!-- input: {{model.user}}  -->
-          
-          <!-- <label for="user">User</label>
-          <input type="text" class="form-control" id="user"
-                required
-                [(ngModel)]="model.user" name="user">
-                input: {{model.user}} -->
-          <!-- <div [hidden]="name.valid || name.pristine"
-            class="alert alert-danger">
-            Name is required
-          </div> -->
-          <!-- <div [hidden]="user.valid || name.pristine"
-              class="alert alert-danger">
-            User is required
-          </div> -->
         </div>
     
         <!-- input: {{model.rating}} -->
@@ -46,7 +37,11 @@
         <div class="form-container">
 
           <mat-form-field>
-            <textarea matInput placeholder="Comment" name="comment" [(ngModel)]="model.comment"></textarea>
+            <textarea matInput placeholder="Comment" name="comment" [(ngModel)]="model.comment"
+            [formControl]="commentFormControl" [errorStateMatcher]="commentMatcher"></textarea>
+            <mat-error *ngIf="commentFormControl.hasError('required')">
+              Comment is <strong>required</strong>
+            </mat-error>
           </mat-form-field>
 
           <!-- <label for="comment">Comment</label>
@@ -70,7 +65,7 @@
         <!-- <button type="submit" class="btn btn-success" [disabled]="!commentForm.form.valid">Submit</button> -->
         <div class="form-container">
           <span>
-              <button mat-button type="submit" class="btn btn-success" >Submit</button>
+              <button mat-button type="submit" class="btn btn-success">Submit</button>
               <button mat-button type="reset" class="btn btn-default" (click)="commentForm.reset()">Reset</button>
           </span>
         </div>

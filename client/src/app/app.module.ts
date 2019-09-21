@@ -15,7 +15,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommentsComponent } from './comments/comments.component';
 import { GamesdetailsComponent } from './gamesdetails/gamesdetails.component';
 import { CommentFormComponent } from './comment-form/comment-form.component'
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { ErrorStateMatcher } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,7 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule, ApprouteModule,
-    FormsModule, 
+    FormsModule, ReactiveFormsModule,
     BrowserAnimationsModule, 
     MaterialModule, MatButtonModule, MatCheckboxModule
   ],
