@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -19,6 +20,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ErrorStateMatcher } from '@angular/material/core';
 
+import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,12 +31,14 @@ import { ErrorStateMatcher } from '@angular/material/core';
     GamesdetailsComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule, ApprouteModule,
     FormsModule, ReactiveFormsModule,
     BrowserAnimationsModule, 
-    MaterialModule, MatButtonModule, MatCheckboxModule
+    MaterialModule, MatButtonModule, MatCheckboxModule,
+    ToastrModule.forRoot()
   ],
   providers: [ GamesService ],
   bootstrap: [ AppComponent ]

@@ -6,6 +6,8 @@ import { Comment, GameBrief } from '../model';
 import { ErrorStateMatcher } from '@angular/material/core'
 import { FormControl, FormGroupDirective, NgForm, Validators, FormGroup, FormBuilder } from '@angular/forms';
 
+import { ToastrService } from 'ngx-toastr';
+
 export class CommentFormErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
@@ -41,7 +43,7 @@ export class CommentFormComponent implements OnInit {
   model: Comment = {
     _id: '',
     unknown: null,
-    user: 'Apple',
+    user: '',
     rating: null,
     comment: '',
     ID: null ,
@@ -64,7 +66,8 @@ export class CommentFormComponent implements OnInit {
 
   submitted = false;
 
-  constructor(readonly gameSvc: GamesService, readonly router: Router, readonly activatedRoute: ActivatedRoute, private formBuilder: FormBuilder) { }
+  constructor(readonly gameSvc: GamesService, readonly router: Router, readonly activatedRoute: ActivatedRoute, 
+    private formBuilder: FormBuilder, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.ratings = Array(10).fill(0).map((x,i)=>i+1);
@@ -94,6 +97,7 @@ export class CommentFormComponent implements OnInit {
       console.info('>> component success:' + result);
       this.refreshCount();
       this.ngOnInit();
+      this.showSuccess();
     })
     .catch( error => {
       console.error('>> component error:' + error)
@@ -106,10 +110,13 @@ export class CommentFormComponent implements OnInit {
     this.refreshCounter++;
     // console.log('COUNTER: ', this.refreshCounter);
   }
-  
 
   
-  
+  showSuccess() {
+    this.toastr.success("Comment submitted", 'Success!', {
+      timeOut: 90000
+    });
+  }
 
   // comment: Comment;
   // message: string;
