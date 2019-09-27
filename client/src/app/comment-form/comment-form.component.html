@@ -1,85 +1,73 @@
 <div class="container">
-  <div class="mat-app-background basic-container">
-    <div class="mat-elevation-z8">
-      <br><br>
-      <div class="form-container">
-          <h4>Add Comment</h4>
-      </div>
-      <br>
-      
+    <div class="mat-app-background basic-container">
+        <div class="mat-elevation-z8">
+            <br><br>
+            <div class="form-container">
+                <h4>Add Comment</h4>
+            </div>
+            <br>
 
-    <form mat-form (ngSubmit)="onSubmit()" #commentForm="ngForm">
+            <form mat-form [formGroup]="addCommentForm" #formDirective="ngForm" (ngSubmit)="onSubmit(addCommentForm, formDirective)">
 
-        <div class="form-container">
-          <span class="span-container">
-            <mat-form-field>
-                <input matInput placeholder="Username" id="user" name="user" [(ngModel)]="model.user" 
-                  [formControl]="userFormControl" [errorStateMatcher]="userMatcher">
-                <mat-error *ngIf="userFormControl.hasError('required')">
-                  Username is <strong>required</strong>
-                </mat-error>
-            </mat-form-field>
-            <p style="text-align: center"> - </p>
-            <mat-form-field>
-                <mat-select placeholder="Select rating" id="rating" name="rating" [(ngModel)]="model.rating"
-                [formControl]="ratingFormControl" [errorStateMatcher]="ratingMatcher">
-                  <mat-option *ngFor="let r of ratings" [value]="r">{{r}}</mat-option>
-                </mat-select>
-                <mat-error *ngIf="ratingFormControl.hasError('required')">
-                  Rating is <strong>required</strong>
-                </mat-error>
-            </mat-form-field>
-          </span>
+                <div class="form-container">
+                    <span class="span-container">
+
+                        <mat-form-field>
+                            <input matInput placeholder="Username" formControlName="user">
+                            <mat-error *ngIf="user.invalid && user.touched">
+                                Username is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+
+                        <p style="text-align: center"> - </p>
+
+                        <mat-form-field>
+                            <mat-select placeholder='Select rating' formControlName="rating">
+                                <mat-option *ngFor="let r of ratings" [value]="r">{{r}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="rating.invalid && rating.touched">
+                                Rating is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+
+                    </span>
+                </div>
+                <br>
+                <div class="form-container">
+                    <mat-form-field>
+                            <textarea matInput placeholder="Comments...." formControlName="comment"></textarea>
+                    </mat-form-field>
+                    <mat-error *ngIf="comment.invalid && comment.touched">
+                        Comment is <strong>required</strong>
+                    </mat-error>
+                </div>
+
+                <br><br>
+                <div class="form-container">
+                    <span>
+                        <button mat-button type="submit" class="btn btn-success" [disabled]="addCommentForm.invalid">Submit</button>
+                        <button mat-button type="reset" class="btn btn-default" (click)="addCommentForm.reset()" [disabled]="addCommentForm.untouched" >Reset</button>
+                    </span>
+                </div>
+                <br><br>
+            </form>
+
         </div>
-    
-        <!-- input: {{model.rating}} -->
-        <br />
-        <div class="form-container">
-
-          <mat-form-field>
-            <textarea matInput placeholder="Comment" name="comment" [(ngModel)]="model.comment"
-            [formControl]="commentFormControl" [errorStateMatcher]="commentMatcher"></textarea>
-            <mat-error *ngIf="commentFormControl.hasError('required')">
-              Comment is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
-
-          <!-- <label for="comment">Comment</label>
-          <input type="text" class="form-control" id="comment"
-                required
-                [(ngModel)]="model.comment" name="comment"> -->
-          <!-- <div [hidden]="name.valid || name.pristine"
-            class="alert alert-danger">
-            Comment is required
-          </div>
-          <br> -->
-          <!-- <div [hidden]="user.valid || name.pristine"
-              class="alert alert-danger">
-            User is required
-          </div> -->
-          
-        </div>
-        <!-- input: {{model.comment}} -->
-        <br>
-        <br>
-        <!-- <button type="submit" class="btn btn-success" [disabled]="!commentForm.form.valid">Submit</button> -->
-        <div class="form-container">
-          <span>
-              <button mat-button type="submit" class="btn btn-success">Submit</button>
-              <button mat-button type="reset" class="btn btn-default" (click)="commentForm.reset()">Reset</button>
-          </span>
-        </div>
-        <br><br>
-
-    </form>
     </div>
-  </div>
-  <div *ngIf="message">
+    <div *ngIf="message">
     {{message}}
-  </div>
+    </div>
+</div>
+<br><br>
+<div class="container">
+    <div class="mat-app-background basic-container">
+        <div class="mat-elevation-z8">
+            <p style="text-align: center">Value: {{addCommentForm.value | json}}</p>
+        </div>
+    </div>
 </div>
 
 <br>
 <div class="container">
-  <app-comments [data]="refreshCounter"></app-comments>
+<app-comments [data]="refreshCounter"></app-comments>
 </div>

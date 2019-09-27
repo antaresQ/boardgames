@@ -8,13 +8,6 @@ import { FormControl, FormGroupDirective, NgForm, Validators, FormGroup, FormBui
 
 import { ToastrService } from 'ngx-toastr';
 
-export class CommentFormErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
-
 @Component({
   selector: 'app-comment-form',
   templateUrl: './comment-form.component.html',
@@ -22,60 +15,35 @@ export class CommentFormErrorStateMatcher implements ErrorStateMatcher {
 })
 export class CommentFormComponent implements OnInit {
 
-  refreshCounter : number = 0;
-
-  game: GameBrief = {
-    ID: null ,
-    name: '',
-    year: null,
-    rank: null,
-    average: null,
-    bayesAverage: null,
-    usersRated: null,
-    url: null,
-    thumbnail: null
-  };
-
-  ratings: number[]; 
-  
+  addCommentForm: FormGroup;
+  ratings: number[];
+  newComment: Comment;
+  refreshCounter: number = 0;
   message: string;
 
-  model: Comment = {
-    _id: '',
-    unknown: null,
-    user: '',
-    rating: null,
-    comment: '',
-    ID: null ,
-    name: ''
-  };
+  
 
-  userFormControl = new FormControl('', [
-    Validators.required
-  ]);
-  ratingFormControl = new FormControl('', [
-    Validators.required
-  ]);
-  commentFormControl = new FormControl('', [
-    Validators.required
-  ]);
+  constructor(readonly gameSvc: GamesService, readonly router: Router, readonly activatedRoute: ActivatedRoute,
+    private formBuild: FormBuilder,  private toastr: ToastrService) { }
 
-  userMatcher = new CommentFormErrorStateMatcher();
-  ratingMatcher = new CommentFormErrorStateMatcher();
-  commentMatcher = new CommentFormErrorStateMatcher();
 
-  submitted = false;
 
-  constructor(readonly gameSvc: GamesService, readonly router: Router, readonly activatedRoute: ActivatedRoute, 
-    private formBuilder: FormBuilder, private toastr: ToastrService) { }
 
   ngOnInit() {
+
     this.ratings = Array(10).fill(0).map((x,i)=>i+1);
-    
+
+    this.addCommentForm = this.formBuild.group({
+      user: ['', Validators.required],
+      rating: ['', Validators.required],
+      comment: ['', Validators.required]
+    })
+
     const gameId = this.activatedRoute.snapshot.params.gameId;
+
     this.gameSvc.gameBrief(gameId)
     .then(result => {
-      this.model = {
+      this.newComment = {
         user: '',
         rating: null,
         comment: '',
@@ -89,21 +57,45 @@ export class CommentFormComponent implements OnInit {
 
   }
 
-  onSubmit() { this.submitted = true; 
-    const comment = this.model;
-    this.gameSvc.comment(comment)
+
+  onSubmit(formData: any,  formDirective: FormGroupDirective) {
+    const formComment = this.addCommentForm.value;
+
+    this.newComment.user = formComment.user;
+    this.newComment.rating = formComment.rating;
+    this.newComment.comment = formComment.comment;
+
+    this.addCommentForm.reset();
+
+    this.gameSvc.comment(this.newComment)
     .then(result => {
       this.message = result;
       console.info('>> component success:' + result);
+      formDirective.resetForm();
+      this.addCommentForm.reset();
       this.refreshCount();
-      this.ngOnInit();
       this.showSuccess();
     })
     .catch( error => {
       console.error('>> component error:' + error)
     })
 
+
+  
   }
+
+  get user() {
+    return this.addCommentForm.get('user');
+  }
+
+  get rating() {
+    return this.addCommentForm.get('rating');
+  }
+
+  get comment() {
+    return this.addCommentForm.get('comment');
+  }
+
 
 
   refreshCount() {
@@ -117,22 +109,5 @@ export class CommentFormComponent implements OnInit {
       timeOut: 90000
     });
   }
-
-  // comment: Comment;
-  // message: string;
-
-  // constructor(readonly gameSvc: GamesService, readonly router: Router, readonly activatedRoute: ActivatedRoute) { }
-
-  // ngOnInit() {
-  //   const comment = this.activatedRoute.snapshot.params.comment;
-  //   this.gameSvc.comment(comment)
-  //   .then(result => {
-  //     this.message = result
-  //     console.log(result);
-  //   })
-  //   .catch( error => {
-  //     console.error('>> error:', error)
-  //   })
-  // }
 
 }
