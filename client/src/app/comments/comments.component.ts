@@ -29,9 +29,9 @@ export class CommentsComponent implements OnInit, OnChanges {
     .then(result => {
       this.dataSource = new MatTableDataSource(result.comments.reverse());
       this.dataSource.paginator = this.paginator;
-      console.info('result >>', result);
-      console.info('commentsList >>', this.commentsList);
-      console.info('commentsList >>', this.dataSource);
+      // console.info('result >>', result);
+      // console.info('commentsList >>', this.commentsList);
+      // console.info('commentsList >>', this.dataSource);
     })
     .catch(error =>{
       console.error('>> error:', error)
@@ -39,7 +39,7 @@ export class CommentsComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('value changed >>', this.data);
+    //console.log('value changed >>', this.data);
     const gameId = this.activatedRoute.snapshot.params.gameId;
     this.gamesSvc.commentsList(gameId)
     .then(result => {

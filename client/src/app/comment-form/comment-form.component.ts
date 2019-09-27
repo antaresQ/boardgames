@@ -70,7 +70,7 @@ export class CommentFormComponent implements OnInit {
     this.gameSvc.comment(this.newComment)
     .then(result => {
       this.message = result;
-      console.info('>> component success:' + result);
+      // console.info('>> component success:' + result);
       formDirective.resetForm();
       this.addCommentForm.reset();
       this.refreshCount();

@@ -1,4 +1,8 @@
 <div class="container">
+        <app-comments [data]="refreshCounter"></app-comments>
+</div>
+<br><br>
+<div class="container">
     <div class="mat-app-background basic-container">
         <div class="mat-elevation-z8">
             <br><br>
@@ -54,20 +58,12 @@
 
         </div>
     </div>
-    <div *ngIf="message">
-    {{message}}
-    </div>
 </div>
-<br><br>
+<!-- <br><br>
 <div class="container">
     <div class="mat-app-background basic-container">
         <div class="mat-elevation-z8">
             <p style="text-align: center">Value: {{addCommentForm.value | json}}</p>
         </div>
     </div>
-</div>
-
-<br>
-<div class="container">
-<app-comments [data]="refreshCounter"></app-comments>
-</div>
+</div> -->
