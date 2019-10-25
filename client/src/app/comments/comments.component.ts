@@ -20,12 +20,13 @@ export class CommentsComponent implements OnInit, OnChanges {
 
   commentsList: CommentsList;
   @Input() data: any;
+  @Input() gameId: any;
 
   constructor(readonly gamesSvc: GamesService, readonly router: Router, readonly activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    const gameId = this.activatedRoute.snapshot.params.gameId;
-    this.gamesSvc.commentsList(gameId)
+    //const gameId = this.activatedRoute.snapshot.params.gameId;
+    this.gamesSvc.commentsList(this.gameId)
     .then(result => {
       this.dataSource = new MatTableDataSource(result.comments.reverse());
       this.dataSource.paginator = this.paginator;
@@ -40,8 +41,8 @@ export class CommentsComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     //console.log('value changed >>', this.data);
-    const gameId = this.activatedRoute.snapshot.params.gameId;
-    this.gamesSvc.commentsList(gameId)
+    //const gameId =gameId ; //this.activatedRoute.snapshot.params.gameId;
+    this.gamesSvc.commentsList(this.gameId)
     .then(result => {
       this.dataSource = new MatTableDataSource(result.comments.reverse());
       this.dataSource.paginator = this.paginator;
@@ -53,7 +54,7 @@ export class CommentsComponent implements OnInit, OnChanges {
       console.error('>> error:', error)
     })
   }
-  
+
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();

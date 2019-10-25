@@ -22,7 +22,7 @@ export class GamesService {
             this.http.get<GamesName[]>(`/api/games`)
             .toPromise()
             .then(result => {
-                
+
                 return (<GamesList>{
                     games:result,
                     timestamp: (new Date()).toUTCString()
@@ -31,7 +31,7 @@ export class GamesService {
         )
     }
 
-    gameBrief(gameId: string): Promise<GameBrief> {
+    gameBrief(gameId: number): Promise<GameBrief> {
         return (
             this.http.get<GameBrief>(`/api/gameBrief/${gameId}`)
             .toPromise()
@@ -41,12 +41,12 @@ export class GamesService {
         )
     }
 
-    commentsList(gameId: string): Promise<CommentsList> {
+    commentsList(gameId: number): Promise<CommentsList> {
         return (
             this.http.get<Comment[]>(`/api/comments/${gameId}`)
             .toPromise()
             .then(result => {
-                
+
                 return (<CommentsList>{
                     comments:result
                 });

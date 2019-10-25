@@ -20,8 +20,9 @@ export class CommentFormComponent implements OnInit {
   newComment: Comment;
   refreshCounter: number = 0;
   message: string;
+  gameId: number;
 
-  
+
 
   constructor(readonly gameSvc: GamesService, readonly router: Router, readonly activatedRoute: ActivatedRoute,
     private formBuild: FormBuilder,  private toastr: ToastrService) { }
@@ -39,9 +40,9 @@ export class CommentFormComponent implements OnInit {
       comment: ['', Validators.required]
     })
 
-    const gameId = this.activatedRoute.snapshot.params.gameId;
+    this.gameId = this.activatedRoute.snapshot.params.gameId;
 
-    this.gameSvc.gameBrief(gameId)
+    this.gameSvc.gameBrief(this.gameId)
     .then(result => {
       this.newComment = {
         user: '',
@@ -81,7 +82,7 @@ export class CommentFormComponent implements OnInit {
     })
 
 
-  
+
   }
 
   get user() {
@@ -103,7 +104,7 @@ export class CommentFormComponent implements OnInit {
     // console.log('COUNTER: ', this.refreshCounter);
   }
 
-  
+
   showSuccess() {
     this.toastr.success("Comment submitted", 'Success!', {
       timeOut: 90000
