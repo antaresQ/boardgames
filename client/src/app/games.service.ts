@@ -19,14 +19,14 @@ export class GamesService {
 
     gamesList(): Promise<GamesList> {
         return (
-            this.http.get<GamesName[]>(`/api/games`)
+            this.http.get<GameBrief[]>(`/api/games`)
             .toPromise()
             .then(result => {
-
-                return (<GamesList>{
+                const g = <GamesList> {
                     games:result,
                     timestamp: (new Date()).toUTCString()
-                });
+                }
+                return(g);
             })
         )
     }

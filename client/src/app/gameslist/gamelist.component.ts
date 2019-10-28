@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GamesService } from '../games.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { GamesList } from '../model';
+import { GamesList, GameBrief } from '../model';
 
 
 @Component({
@@ -13,7 +13,7 @@ export class GamelistComponent implements OnInit {
 
   constructor(readonly gameSvc: GamesService, readonly router:Router,) { }
 
-  gamesList: GamesList ={ games: [] , timestamp:'' }
+  gamesList: GamesList; //={ games: GameBrief[] , timestamp:'' }
 
   ngOnInit() {
 
@@ -26,7 +26,7 @@ export class GamelistComponent implements OnInit {
       console.error('>> error:', error)
     })
 
-    
+
   }
 
 }

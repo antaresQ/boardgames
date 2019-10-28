@@ -24,7 +24,9 @@ app.get('/api/games',
     (req,resp) => {
         client.db('boardgames')
         .collection('gameslist')
-        .distinct('Name')
+        .find({})
+        .sort({ID:1})
+        .toArray()
         .then(result => {
             resp.status(200)
             resp.type('application/json')

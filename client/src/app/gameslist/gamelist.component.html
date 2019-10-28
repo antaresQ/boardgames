@@ -12,8 +12,19 @@
     </div>
 </mat-action-list>-->
 
-<mat-action-list>
-    <button mat-list-item *ngFor="let g of gamesList.games">
-        {{g}}
-    </button>
-</mat-action-list>
+<div class="container">
+  <div class="mat-app-background basic-container">
+    <div class="mat-elevation-z8">
+      <div class="info-container">
+        <br><br>
+        <h4>Games List</h4>
+        <br>
+        <mat-action-list>
+            <button mat-list-item *ngFor="let g of gamesList.games, let i = index" [routerLink]="'../game/'+g.ID">
+                {{g.ID}}. {{g.Name}} {{g.Year}} {{g.Rank}} {{g['Users rated']}}
+            </button>
+        </mat-action-list>
+      </div>
+    </div>
+  </div>
+</div>
