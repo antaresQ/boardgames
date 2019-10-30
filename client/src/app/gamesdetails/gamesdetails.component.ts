@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { GamesService } from '../games.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import {} from '../model';
 
 @Component({
   selector: 'app-gamesdetails',
@@ -7,7 +10,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GamesdetailsComponent implements OnInit {
 
-  constructor() { }
+  constructor(readonly gameSvc: GamesService, readonly router:Router,) { }
+
+
 
   ngOnInit() {
   }
