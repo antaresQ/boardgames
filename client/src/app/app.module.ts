@@ -21,6 +21,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 
 import { ToastrModule } from 'ngx-toastr';
+import { GamessearchComponent } from './gamessearch/gamessearch.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ToastrModule } from 'ngx-toastr';
     GamelistComponent,
     CommentFormComponent,
     CommentsComponent,
-    GamesdetailsComponent
+    GamesdetailsComponent,
+    GamessearchComponent
   ],
   imports: [
     CommonModule,
@@ -36,7 +38,7 @@ import { ToastrModule } from 'ngx-toastr';
     BrowserAnimationsModule,
     HttpClientModule, ApprouteModule,
     FormsModule, ReactiveFormsModule,
-    BrowserAnimationsModule, 
+    BrowserAnimationsModule,
     MaterialModule, MatButtonModule, MatCheckboxModule,
     ToastrModule.forRoot()
   ],

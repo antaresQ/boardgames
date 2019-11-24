@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { GamesService } from '../games.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { GamesList, GameBrief } from '../model';
-
 
 @Component({
   selector: 'app-gamelist',
@@ -11,22 +10,11 @@ import { GamesList, GameBrief } from '../model';
 })
 export class GamelistComponent implements OnInit {
 
-  constructor(readonly gameSvc: GamesService, readonly router:Router,) { }
+  constructor(readonly gameSvc: GamesService, readonly router:Router) { }
 
-  gamesList: GamesList; //={ games: GameBrief[] , timestamp:'' }
+  @Input() gameBriefList;//={ games: GameBrief[] , timestamp:'' }
 
   ngOnInit() {
 
-    this.gameSvc.gamesList()
-    .then(result => {
-      this.gamesList = result;
-      console.log(this.gamesList);
-    })
-    .catch(error =>{
-      console.error('>> error:', error)
-    })
-
-
   }
-
 }

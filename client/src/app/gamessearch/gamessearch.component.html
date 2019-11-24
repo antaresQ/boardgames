@@ -1,0 +1,20 @@
+
+<div class="container">
+  <div class="mat-app-background basic-container">
+      <div class="mat-elevation-z8">
+          <div class="info-container">
+            <h2>Boardgames</h2>
+            <br />
+            <mat-form-field>
+                <input matInput type="text" [(ngModel)]="searchText" placeholder="Search boardgames by name" (change) = "onChanges()">
+            </mat-form-field>
+            <br />
+          </div>
+      </div>
+  </div>
+</div>
+<br /><br />
+
+
+
+<app-gamelist [gameBriefList]="gamesToDisplay"></app-gamelist>
