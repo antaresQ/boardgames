@@ -2,6 +2,8 @@ import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/cor
 import { GamesService } from '../games.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { GamesList, GameBrief } from '../model';
+import { isEmpty } from 'rxjs/operators';
+import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-gamessearch',
@@ -69,11 +71,19 @@ export class GamessearchComponent implements OnChanges {
   }
 
   onChanges() {
-    const gameName = JSON.stringify(this.searchText);
-    if (gameName != null) {
-    this.gamesToDisplay = this.games.filter(game => game.Name === this.searchText);
-    //this.gamesToDisplay = this.filterGames(this.games, this.searchText);
+    const gameName = this.searchText.toString();
+    console.log('searchText: ', this.searchText);
+    console.log('gameName: ', gameName);
+    if ( gameName === '' || gameName === null ) {
+      this.gamesToDisplay = this.games;
+    } else if (gameName != null) {
+      this.gamesToDisplay = this.games.filter(game => game.Name === gameName);
+      //this.gamesToDisplay = this.filterGames(this.games, this.searchText);
+    } else {
+      this.gamesToDisplay = this.games;
     }
+    console.log('games', this.games);
+    console.log('gamesToDisplay', this.gamesToDisplay);
   }
 
   filterGames = (games: GameBrief[], searchText: string) => {
