@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
 import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
-import { catchError } from 'rxjs/operators'
+import { catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 import { GamesList, GamesName, GameBrief, Comment, CommentsList } from './model';
 import { reject } from 'q';
@@ -8,87 +9,91 @@ import { reject } from 'q';
 @Injectable()
 export class GamesService {
 
-    headers: Headers;
-    options: HttpHeaders;
+  headers: Headers;
+  options: HttpHeaders;
 
-    httpOptions ={
-        headers: new HttpHeaders({'Content-Type': 'application/json'})
-    };
+  httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+  };
 
-    constructor(readonly http:HttpClient) {}
+  constructor(readonly http: HttpClient) {}
 
-    gamesList(): Promise<GamesList> {
-        return (
-            this.http.get<GameBrief[]>(`/api/games`)
-            .toPromise()
-            .then(result => {
-                const g = <GamesList> {
-                    games:result,
-                    timestamp: (new Date()).toUTCString()
-                }
-                return(g);
-            })
-        )
-    }
+  getGamesList(): Promise<GamesList> {
+    return (
+      this.http.get<GameBrief[]>(`/api/games`)
+      .toPromise()
+      .then(result => {
+        const g = {
+            games: result,
+            timestamp: (new Date()).toUTCString()
+        } as GamesList;
+        return(g);
+      })
+    );
+  }
 
-    gameBrief(gameId: number): Promise<GameBrief> {
-        return (
-            this.http.get<GameBrief>(`/api/gameBrief/${gameId}`)
-            .toPromise()
-            .then(result => {
-                return (result);
-            })
-        )
-    }
+  gamesList() {
+    return this.http.get<GameBrief[]>(`/api/games`);
+  }
 
-    commentsList(gameId: number): Promise<CommentsList> {
-        return (
-            this.http.get<Comment[]>(`/api/comments/${gameId}`)
-            .toPromise()
-            .then(result => {
+  gameBrief(gameId: number): Promise<GameBrief> {
+      return (
+          this.http.get<GameBrief>(`/api/gameBrief/${gameId}`)
+          .toPromise()
+          .then(result => {
+              return (result);
+          })
+      );
+  }
 
-                return (<CommentsList>{
-                    comments:result
-                });
-            })
-        )
-    }
+  commentsList(gameId: number): Promise<CommentsList> {
+      return (
+          this.http.get<Comment[]>(`/api/comments/${gameId}`)
+          .toPromise()
+          .then(result => {
 
-    comment(commentFromForm: any): Promise<any> {
-        //let body = JSON.stringify(comment);
-        const comment = {
-            index: null,
-            user: commentFromForm.user,
-            rating: commentFromForm.rating,
-            comment: commentFromForm.comment,
-            ID: commentFromForm.ID,
-            name: commentFromForm.name
-        }
-        return(
-            this.http.post<any>('/api/addcomment', comment)
-            .pipe(
-                catchError(this.handleError)
-            )
-            .toPromise()
-            .then(result => {
-                console.info('>> service Success:' + result.data);
-                return '>> service Success:' + result.data;
-            })
-            .catch(error => {
-                console.info('service error' + error);
-                return error;
-            })
-        )
-    }
+              return ({
+                  comments:result
+              } as CommentsList);
+          })
+      )
+  }
 
-    private extractData(res: Response) {
-        let body = res.json();
-        return body || {};
-    }
+  comment(commentFromForm: any): Promise<any> {
+      // let body = JSON.stringify(comment);
+      const comment = {
+          index: null,
+          user: commentFromForm.user,
+          rating: commentFromForm.rating,
+          comment: commentFromForm.comment,
+          ID: commentFromForm.ID,
+          name: commentFromForm.name
+      }
+      return(
+          this.http.post<any>('/api/addcomment', comment)
+          .pipe(
+              catchError(this.handleError)
+          )
+          .toPromise()
+          .then(result => {
+              console.info('>> service Success:' + result.data);
+              return '>> service Success:' + result.data;
+          })
+          .catch(error => {
+              console.info('service error' + error);
+              return error;
+          })
+      )
+  }
 
-    private handleError(error: any): Promise<any> {
-        console.error('An error occurred', error);
-        return Promise.reject(error.message || error);
-    }
+  private extractData(res: Response) {
+      let body = res.json();
+      return body || {};
+  }
+
+  private handleError(error: any): Promise<any> {
+      console.error('An error occurred', error);
+      return Promise.reject(error.message || error);
+  }
 
 }

@@ -22,6 +22,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 
 import { ToastrModule } from 'ngx-toastr';
 import { GamessearchComponent } from './gamessearch/gamessearch.component';
+import { JwPaginationComponent } from 'jw-angular-pagination';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { GamessearchComponent } from './gamessearch/gamessearch.component';
     CommentFormComponent,
     CommentsComponent,
     GamesdetailsComponent,
-    GamessearchComponent
+    GamessearchComponent,
+    JwPaginationComponent
   ],
   imports: [
     CommonModule,

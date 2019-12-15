@@ -58,16 +58,21 @@ export class GamessearchComponent implements OnChanges {
   }
 
   ngOnInit() {
-    this.gameSvc.gamesList()
-    .then(result => {
-      this.games = result.games;
-      console.log(this.games);
-      console.log('gameservice working');
-      this.gamesToDisplay = this.games.slice(0, 20);
-    })
-    .catch(error =>{
-      console.error('>> error:', error);
+    const gamesListObservable = this.gameSvc.gamesList();
+    gamesListObservable.subscribe((gamesData: GameBrief[]) => {
+      this.games = gamesData;
     });
+
+    // this.gameSvc.gamesList()
+    // .then(result => {
+    //   this.games = result.games;
+    //   console.log(this.games);
+    //   console.log('gameservice working');
+    //   this.gamesToDisplay = this.games.slice(0, 20);
+    // })
+    // .catch(error =>{
+    //   console.error('>> error:', error);
+    // });
   }
 
   onChanges() {
