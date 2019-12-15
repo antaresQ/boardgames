@@ -61,6 +61,7 @@ export class GamessearchComponent implements OnChanges {
     const gamesListObservable = this.gameSvc.gamesList();
     gamesListObservable.subscribe((gamesData: GameBrief[]) => {
       this.games = gamesData;
+      this.gamesToDisplay = gamesData;
     });
 
     // this.gameSvc.gamesList()
